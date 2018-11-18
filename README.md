@@ -1,0 +1,1 @@
+This repository is to understand the basic implementation of sqlite database.
