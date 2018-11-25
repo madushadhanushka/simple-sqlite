@@ -2,6 +2,9 @@
 #include <string.h>
 #include <mm_malloc.h>
 
+#include "sqliteInt.h"
+int sqlite_malloc_failed = 0;
+
 /* An array to map all upper-case characters into their corresponding
 ** lower-case character.
 */
@@ -41,7 +44,7 @@ int sqliteHashNoCase(const char *z, int n){
     if( h<0 ) h = -h;
     return h;
 }
-int sqlite_malloc_failed = 0;
+
 /*
 ** Allocate new memory and set it to zero.  Return NULL if
 ** no memory is available.
@@ -54,4 +57,53 @@ void *sqliteMalloc(int n){
     }
     memset(p, 0, n);
     return p;
+}
+
+/*
+** Create a string from the 2nd and subsequent arguments (up to the
+** first NULL argument), store the string in memory obtained from
+** sqliteMalloc() and make the pointer indicated by the 1st argument
+** point to that string.
+*/
+void sqliteSetString(char **pz, const char *zFirst, ...){
+    va_list ap;
+    int nByte;
+    const char *z;
+    char *zResult;
+
+    if( pz==0 ) return;
+    nByte = strlen(zFirst) + 1;
+    va_start(ap, zFirst);
+    while( (z = va_arg(ap, const char*))!=0 ){
+        nByte += strlen(z);
+    }
+    va_end(ap);
+    sqliteFree(*pz);
+    *pz = zResult = sqliteMalloc( nByte );
+    if( zResult==0 ){
+        return;
+    }
+    strcpy(zResult, zFirst);
+    zResult += strlen(zResult);
+    va_start(ap, zFirst);
+    while( (z = va_arg(ap, const char*))!=0 ){
+        strcpy(zResult, z);
+        zResult += strlen(zResult);
+    }
+    va_end(ap);
+#ifdef MEMORY_DEBUG
+    #if MEMORY_DEBUG>1
+  fprintf(stderr,"string at 0x%x is %s\n", (int)*pz, *pz);
+#endif
+#endif
+}
+/*
+** Make a copy of a string in memory obtained from sqliteMalloc()
+*/
+char *sqliteStrDup(const char *z){
+    char *zNew;
+    if( z==0 ) return 0;
+    zNew = sqliteMalloc(strlen(z)+1);
+    if( zNew ) strcpy(zNew, z);
+    return zNew;
 }

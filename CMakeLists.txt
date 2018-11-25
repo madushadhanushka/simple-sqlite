@@ -16,4 +16,8 @@ add_executable(simple_sqlite
         core/sqliteInt.h
         core/util.c
         core/util.h
-        main.c)
+        core/pager.c
+        core/pager.h
+        core/btree.c
+        core/btree.h
+        main.c test/vfstest.c test/vfstest.h test/pagetest.c test/pagetest.h test/btreetest.c test/btreetest.h)

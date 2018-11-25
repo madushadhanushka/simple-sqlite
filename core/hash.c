@@ -170,7 +170,8 @@ static void rehash(Hash *pH, int new_size){
     int (*xHash)(const void*,int); /* The hash function */
 
     assert( (new_size & (new_size-1))==0 );
-    new_ht = (struct _ht *)sqliteMalloc( new_size*sizeof(struct _ht) );
+    new_ht = malloc(new_size*sizeof(struct _ht));
+    memset(new_ht, 0, new_size*sizeof(struct _ht));
     if( new_ht==0 ) return;
     if( pH->ht ) sqliteFree(pH->ht);
     pH->ht = new_ht;
@@ -312,7 +313,8 @@ void *sqliteHashInsert(Hash *pH, const void *pKey, int nKey, void *data){
         return old_data;
     }
     if( data==0 ) return 0;
-    new_elem = (HashElem*)sqliteMalloc( sizeof(HashElem) );
+    new_elem = malloc( sizeof(HashElem) );
+    memset(new_elem, 0, sizeof(HashElem));
     if( new_elem==0 ) return data;
     if( pH->copyKey && pKey!=0 ){
         new_elem->pKey = sqliteMalloc( nKey );
