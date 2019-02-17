@@ -14,24 +14,24 @@ void testBtree(char **fileLocation) {
 
     int iTable;
     sqliteBtreeBeginTrans(pBt);
-    rc = sqliteBtreeCreateTable(pBt, &iTable);
+    rc = sqliteBtreeCreateTable(pBt, &iTable);          // Create new table and return table id to iTable
     printf("Root Page id: %d\n",iTable);
-    sqliteBtreeCommit(pBt);
+    sqliteBtreeCommit(pBt);                         // Commit changes to file system
 
     BtCursor *pCur;
     int wrFlag = 1; // Read and write
-    rc = sqliteBtreeCursor(pBt, iTable, wrFlag, &pCur);
+    rc = sqliteBtreeCursor(pBt, iTable, wrFlag, &pCur);         // Get cursor to Btree
 
     char *keyToWrote = "key1";
     char *valToWrite = "value1";
     sqliteBtreeBeginTrans(pBt);
-    sqliteBtreeInsert(pCur, keyToWrote, strlen(keyToWrote), valToWrite, strlen(valToWrite));
+    sqliteBtreeInsert(pCur, keyToWrote, strlen(keyToWrote), valToWrite, strlen(valToWrite));    // Insert value to Btree
     sqliteBtreeCommit(pBt);
 
     char *keyToWrote2 = "key20345094830594830580398485739470583049504857237487329580438059840593875987239473850943850997593287493794879285794835394805980239";
     char *valToWrite2 = "value2a4444499000233234234324234234384023984092830498203948283749623849938423804598059834-059340-5934-0959-20394-203768723487248";
     sqliteBtreeBeginTrans(pBt);
-    sqliteBtreeInsert(pCur, keyToWrote2, strlen(keyToWrote2), valToWrite2, strlen(valToWrite2));
+    sqliteBtreeInsert(pCur, keyToWrote2, strlen(keyToWrote2), valToWrite2, strlen(valToWrite2)); // Insert value to Btree
     sqliteBtreeCommit(pBt);
 
     char *keyToWrote4 = "key4";
@@ -86,6 +86,21 @@ void testBtree(char **fileLocation) {
     rc = sqliteBtreeData(pCur, 0, dataSize, zBuf);
     printf("Next pointed data is: %s\n", zBuf);
 
+    int pRes = 0;
+    // Move cursor to first record
+    rc = sqliteBtreeFirst(pCur, &pRes);
+
+    // Get key size of cursor is pointing to
+    sqliteBtreeKeySize(pCur, &keySize);
+    // Read the key and write it into the buffer
+    rc = sqliteBtreeKey(pCur, 0, keySize, zBuf);
+    printf("First key is: %s\n", zBuf);
+
+    // Get data size of cursor is pointing to
+    sqliteBtreeDataSize(pCur, &dataSize);
+    // Read the data and write it into the buffer
+    rc = sqliteBtreeData(pCur, 0, dataSize, zBuf);
+    printf("First data is: %s\n", zBuf);
 
     int aMeta[SQLITE_N_BTREE_META];
     rc = sqliteBtreeGetMeta(pBt, aMeta);
