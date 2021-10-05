@@ -15,7 +15,7 @@ Compile and running instructions for Unix
 4. Build with make
 <br/>`make`
 5. Run test 
-<br/>`./simple-sqlite`
+<br/>`./simple_sqlite`
 
 Use as your own Paging library
 ========
