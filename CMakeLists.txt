@@ -3,6 +3,11 @@ project(simple_sqlite C)
 
 set(CMAKE_C_STANDARD 11)
 
+# issue #1
+if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+        set(CMAKE_C_FLAGS "-Wno-implicit-function-declaration")
+endif()
+
 include_directories(core)
 
 add_executable(simple_sqlite
