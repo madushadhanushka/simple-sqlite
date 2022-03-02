@@ -41,3 +41,10 @@ Close the connection to the file<br/>
 Contribute!
 ===========
 If you see somthing wrong, Inclomplete content or improvement, you are welcome to create issue or send pull request to this repository in order to improve the code quality and the readability.
+
+Following are the top contributors of this repository. Keep coding! 👨🏻‍💻👩🏻‍💻
+
+<a href = "https://github.com/madushadhanushka/simple-sqlite/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo=madushadhanushka/simple-sqlite"/>
+</a>
+
