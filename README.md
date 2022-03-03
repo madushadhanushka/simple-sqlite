@@ -2,6 +2,9 @@ Simple SQLite Backend
 =========
 This repository is to understand the basic backend implementation of SQLite database. Codes are extracted from SQLite 2.5.0 version and initial implementation may have changed. Here, testing codes are added into the test directory and all SQLite implementation are included into the core directory. Tests included to test VFS, Pager and Btree functionality.
 
+## Reading materials
+[Introduction to the indexing and Btree](https://github.com/madushadhanushka/simple-sqlite/blob/master/blog/introduction_to_btree_and_bplustree.md)
+
 
 Compile and running instructions for Unix
 ======
