@@ -1,3 +1,5 @@
+[![CMake](https://github.com/madushadhanushka/simple-sqlite/actions/workflows/cmake.yml/badge.svg)](https://github.com/madushadhanushka/simple-sqlite/actions/workflows/cmake.yml)
+
 Simple SQLite Backend
 =========
 This repository is to understand the basic backend implementation of SQLite database. Codes are extracted from SQLite 2.5.0 version and initial implementation may have changed. Here, testing codes are added into the test directory and all SQLite implementation are included into the core directory. Tests included to test VFS, Pager and Btree functionality.
