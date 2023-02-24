@@ -7,6 +7,7 @@ This repository is to understand the basic backend implementation of SQLite data
 ## Reading materials
 [Introduction to the indexing and Btree](https://github.com/madushadhanushka/simple-sqlite/blob/master/blog/introduction_to_btree_and_bplustree.md)
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/bOFlJ0oUjU4/0.jpg)](https://www.youtube.com/watch?v=bOFlJ0oUjU4)
 
 Compile and running instructions for Unix
 ======
